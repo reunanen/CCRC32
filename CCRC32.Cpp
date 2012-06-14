@@ -17,6 +17,11 @@
 
 #include "CCRC32.H"
 
+#ifdef _USE_GLOBAL_MEMPOOL
+#include "../CMemPool/CMemPool.H"
+extern CMemPool *pMem; //pMem must be defined and initalized elsewhere.
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
 	This function initializes "CRC Lookup Table". You only need to call it once to
@@ -156,7 +161,11 @@ bool CCRC32::FileCRC(const char *sFileName, unsigned long *ulOutCRC, size_t ulBu
 		return false; //Failed to open file for read access.
 	}
 
-	if(!(sBuf = (unsigned char *)malloc(ulBufferSize))) //Allocate memory for file buffering.
+	#ifdef _USE_GLOBAL_MEMPOOL
+		if(!(sBuf = (unsigned char *)pMem->Allocate(ulBufferSize, 1))) //Allocate memory for file buffering.
+	#else
+		if(!(sBuf = (unsigned char *)malloc(ulBufferSize))) //Allocate memory for file buffering.
+	#endif
 	{
 		fclose(fSource);
 		return false; //Out of memory.
@@ -167,7 +176,12 @@ bool CCRC32::FileCRC(const char *sFileName, unsigned long *ulOutCRC, size_t ulBu
 		this->PartialCRC(ulOutCRC, sBuf, iBytesRead);
 	}
 
-	free(sBuf);
+	#ifdef _USE_GLOBAL_MEMPOOL
+		pMem->Free(sBuf);
+	#else
+		free(sBuf);
+	#endif
+
 	fclose(fSource);
 
 	((unsigned long)*ulOutCRC) ^= 0xffffffff; //Finalize the CRC.
