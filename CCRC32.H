@@ -18,19 +18,19 @@ class CCRC32{
 
 		void Initialize(void);
 
-		bool FileCRC(const char *sFileName, unsigned int *ulOutCRC);
-		bool FileCRC(const char *sFileName, unsigned int *ulOutCRC, size_t ulBufferSize);
+		bool FileCRC(const char *sFileName, unsigned int *iOutCRC);
+		bool FileCRC(const char *sFileName, unsigned int *iOutCRC, size_t iBufferSize);
 		unsigned int FileCRC(const char *sFileName);
-		unsigned int FileCRC(const char *sFileName, size_t ulBufferSize);
+		unsigned int FileCRC(const char *sFileName, size_t iBufferSize);
 
-		unsigned int FullCRC(const unsigned char *sData, size_t ulDataLength);
-		void FullCRC(const unsigned char *sData, size_t ulLength, unsigned int *ulOutCRC);
+		unsigned int FullCRC(const unsigned char *sData, size_t iDataLength);
+		void FullCRC(const unsigned char *sData, size_t iLength, unsigned int *iOutCRC);
 
-		void PartialCRC(unsigned int *ulCRC, const unsigned char *sData, size_t ulDataLength);
+		void PartialCRC(unsigned int *iCRC, const unsigned char *sData, size_t iDataLength);
 
 	private:
-		unsigned int Reflect(unsigned int ulReflect, const char cChar);
-		unsigned int ulTable[256]; // CRC lookup table array.
+		unsigned int Reflect(unsigned int iReflect, const char cChar);
+		unsigned int iTable[256]; // CRC lookup table array.
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,15 +11,27 @@ Del *.suo
 Del *.xml
 Del *.old
 Del *.user
+Del *.sdf
 
+Del Release\x64\*.* /Q
+Del Release\Win32\*.* /Q
 Del Release\*.* /Q
-Del Debug\*.* /Q
-Del Setup\Output\*.* /Q
+Rd Release\x64
+Rd Release\Win32
+Rd Release
 
-RD Release
-RD Debug
+Del Debug\x64\*.* /Q
+Del Debug\Win32\*.* /Q
+Del Debug\*.* /Q
+Rd Debug\x64
+Rd Debug\Win32
+Rd Debug
+
+Del Setup\Output\*.* /Q
 RD Setup\Output
 
 Del Resources\*.aps
+
+DeleteTree IPCH /Y /DelRoot
 
 Cls

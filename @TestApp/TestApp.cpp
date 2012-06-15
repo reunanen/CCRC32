@@ -33,14 +33,14 @@ int main(int iArg, char *sArg[])
 
 	if(strlen(sSourceFile) > 0) //Do we have a file name?
 	{
-		CCRC32 MyCRC32;
-		MyCRC32.Initialize(); //Only have to do this once.
+		CCRC32 crc32;
+		crc32.Initialize(); //Only have to do this once.
 
-		unsigned long ulCRC = 0;
+		unsigned int iCRC = 0;
 
-		if(MyCRC32.FileCRC(sSourceFile, &ulCRC))
+		if(crc32.FileCRC(sSourceFile, &iCRC))
 		{
-			printf("CRC32: %X\n", ulCRC);
+			printf("CRC32: %X\n", iCRC);
 		}
 		else{
 			printf("File not found or access denied.\n");
